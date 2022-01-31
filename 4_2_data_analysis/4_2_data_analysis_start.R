@@ -39,7 +39,7 @@ ggplot(vulnerable, aes(x= primary_percent,
   ggtitle("Vote Percentages in 2018 House Elections")
 
 
-## Data filtering and vizualization to examine vulnerability and opinion ----
+## Data filtering and visualization to examine vulnerability and opinion ----
 
 #selecting Democrats vulnerable to primary challenges who are not strongest possible environmentalists:
 vulnerableD <- data %>%
@@ -55,8 +55,23 @@ ggplot(vulnerableD, aes(x= lcv_score,
 
 
 
+### New code:
+
+# Filter for vulnerable democrats with populations who think their local officials (localofficials > 50) and Congress (congress > 50) should be doing more to address global warming
+# Filter for those who say a candidate's views on global warming are important to their vote (priority > 50)
+# Filter for those who are somewhat/very worried about global warming (worried > 50)
+# Filter for populations with a low percentage of those who hear about global warming in the media (mediaweekly < 25)
+# Rank in order of mediaweekly percentages (lowest percentages)
+public_opinion_favors_policy <- vulnerableD %>% 
+  filter(localofficials > 50) %>% 
+  filter(congress > 50) %>% 
+  filter(priority > 50) %>% 
+  filter(worried > 50) %>% 
+  filter(mediaweekly < 25) %>% 
+  arrange(mediaweekly)
+# TJ Cox is identified as a vulnerable Democrat of interest based on the code above
+
+# TJ Cox data:
 district_21 <- vulnerableD %>% 
   filter(district == 21)
-
-# TJ Cox is identified as a vulnerable Democrat based on the code above and the data notes that TJ Cox's LCV score is 97.
 
